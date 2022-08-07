@@ -1,0 +1,31 @@
+%flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+%flexsb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+%flexst {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+%flexstst {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+%flexstsb {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
