@@ -8,8 +8,12 @@ const App = () => {
         text: "fetching..."
     })
 
+
     const fetcher = async () => {
-        const response = await axios("https://api.adviceslip.com/advice");
+        let rand = Math.random() * 200;
+        rand = Math.floor(rand);
+
+        const response = await axios(`https://api.adviceslip.com/advice/${rand}`);
 
         setAdvice({
             id: response.data.slip.advice,
@@ -21,10 +25,17 @@ const App = () => {
         fetcher();
     }, [])
 
+    useEffect(() => {
+        let dice = document.querySelector(".box .dice-wrapper");
+        dice.classList.remove("active");
+    }, [advice])
+
     function handleClick() {
-        // let dice = document.querySelectorAll("box .dice-wrapper .dice");
+        let dice = document.querySelector(".box .dice-wrapper");
+        dice.classList.add("active");
         fetcher();
     }
+
 
     return (
         <div className="box">

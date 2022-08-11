@@ -83,6 +83,9 @@ img {
 .box .dice-wrapper:hover {
   box-shadow: 0 0 2rem var(--Neon_Green);
 }
+.box .dice-wrapper.active {
+  opacity: 0.4;
+}
 .box .dice-wrapper .dice {
   aspect-ratio: 1;
   width: 2rem;
