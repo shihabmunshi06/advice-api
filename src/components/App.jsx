@@ -1,39 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 
 const App = () => {
-    let [advice, setAdvice] = useState({
-        id: "loading",
+    const initState = {
+        id: "loading...",
         text: "fetching..."
-    })
-
+    }
+    let [advice, setAdvice] = useState(initState)
+    const button = useRef();
 
     const fetcher = async () => {
-        let rand = Math.random() * 200;
-        rand = Math.floor(rand);
+        let num = Math.random() * 200;
+        num = Math.floor(num);
 
-        const response = await axios(`https://api.adviceslip.com/advice/${rand}`);
+        const response = await axios(`https://api.adviceslip.com/advice/${num}`);
 
         setAdvice({
             id: response.data.slip.advice,
             text: response.data.slip.id
         });
+        button.current.classList.remove("active");
     }
 
     useEffect(() => {
         fetcher();
     }, [])
 
-    useEffect(() => {
-        let dice = document.querySelector(".box .dice-wrapper");
-        dice.classList.remove("active");
-    }, [advice])
 
     function handleClick() {
-        let dice = document.querySelector(".box .dice-wrapper");
-        dice.classList.add("active");
-        fetcher();
+        if (!button.current.classList.contains("active")) {
+            button.current.classList.add("active");
+            setAdvice(initState)
+            fetcher()
+        }
     }
 
 
@@ -41,9 +41,9 @@ const App = () => {
         <div className="box">
             <p>ADVICE #<span>{advice.text}</span> </p>
             <h1>&#8220;{advice.id}&#8221;</h1>
-            <img className="pattern" src="./dist/images/pattern-divider-desktop.svg" alt="" />
-            <div className="dice-wrapper" onClick={handleClick}>
-                <img className="dice" src="./dist/images/icon-dice.svg" alt="" />
+            <img className="pattern" src="./dist/images/pattern-divider-desktop.svg" alt="linebreaker" />
+            <div className="dice-wrapper" onClick={handleClick} ref={button}>
+                <img className="dice" src="./dist/images/icon-dice.svg" alt="dice" />
             </div>
         </div>
     )
